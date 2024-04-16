@@ -1,11 +1,13 @@
 import { useEffect } from "react";
 import { useAppContext } from "../../appContext.tsx";
+import "./TextureMapper.css";
 
 export default function TextureMapper() {
+    const weight = 600;
     const aspectRatio = 16/9;
-    const newHeight = 800 / aspectRatio;
+    const newHeight = weight / aspectRatio;
     // @ts-expect-error yes
-    const { setState } = useAppContext();
+    const { appState, setAppState } = useAppContext();
     useEffect(() => {
         window.addEventListener("paste", function(e){
             retrieveImageFromClipboardAsBlob(e, function(imageBlob){
@@ -43,16 +45,20 @@ export default function TextureMapper() {
                             newHeight = newWidth / imgAspectRatio;
                         }
 
+                        // Calculate the position to draw the image at to be centered
+                        const xPos = (canvasWidth - newWidth) / 2;
+                        const yPos = (canvasHeight - newHeight) / 2;
+
                         // Clear the canvas
                         ctx.clearRect(0, 0, canvasWidth, canvasHeight);
-
+                        console.log(`image width: ${img.width},image height ${img.height} img: ${img}, canvasWidth: ${canvasWidth}, canvasHeight: ${canvasHeight}, imgAspectRatio: ${imgAspectRatio}, newWidth: ${newWidth}, newHeight: ${newHeight}`);
                         // Draw the image
-                        ctx.drawImage(img, 0, 0, newWidth, newHeight);
+                        ctx.drawImage(img, xPos, yPos, newWidth, newHeight);
                     };
 
                     const URLObj = window.URL || window.webkitURL;
                     img.src = URLObj.createObjectURL(imageBlob);
-                    setState({ uploadedUrl: img.src });
+                    setAppState({ ...appState, uploadedUrl: img.src });
                     console.log("Image src", img.src);
                     console.log("Image pasted");
                 }
@@ -63,10 +69,10 @@ export default function TextureMapper() {
         }
     });
     return (
-        <div>
+        <div className="TextureMapper">
             <h1>Texture Mapper</h1>
             <p>Paste or upload an image to map it to a 3D object.</p>
-            <canvas id="textureMapper" width="800" height={newHeight}></canvas>
+            <canvas id="textureMapper" width={weight} height={newHeight}></canvas>
             <button>Turn to Table</button>
         </div>
     );

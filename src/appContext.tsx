@@ -2,13 +2,17 @@ import {ReactElement, ReactNode, ReactPortal, createContext, useContext, useStat
 
 interface Props { children: string | number | boolean | ReactElement | Iterable<ReactNode> | ReactPortal | null | undefined; }
 
+export interface AppState {
+    uploadedUrl: string;
+    controls: boolean;
+}
 
 const AppContext = createContext({});
 const AppProvider = (props: Props) => {
-    const [state, setState] = useState({ uploadedUrl: ''} as { uploadedUrl: string });
+    const [appState, setAppState] = useState({ uploadedUrl: '', controls: true} as AppState);
 
     return (
-        <AppContext.Provider value={{state, setState}}>
+        <AppContext.Provider value={{ appState, setAppState}}>
             {props.children}
         </AppContext.Provider>
     );

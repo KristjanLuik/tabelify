@@ -2,11 +2,12 @@ import * as THREE from 'three';
 
 import React, {useEffect, useRef} from "react";
 import {AppState, useAppContext} from "../../appContext";
+import ControlsSelector from "../ControlsSelector";
 // @ts-expect-error yes
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 
 import './MainScene.css';
-import ControlsSelector from "../ControlsSelector";
+import CanvasSnapshot from "../CanvasSnapshot";
 
 const MainScene = React.memo(function() {
   const weight = 600;
@@ -17,7 +18,7 @@ const MainScene = React.memo(function() {
     if (canvasRef.current) {
       const scene = new THREE.Scene();
       const camera = new THREE.PerspectiveCamera(75, /*window.innerWidth / window.innerHeight*/ 16/9, 0.1, 1000);
-      const renderer = new THREE.WebGLRenderer({ canvas: canvasRef.current });
+      const renderer = new THREE.WebGLRenderer({ canvas: canvasRef.current, preserveDrawingBuffer: true, alpha: true });
       const controls = new OrbitControls( camera, renderer.domElement);
 
       //const aspectRatio = window.innerWidth / window.innerHeight;
@@ -69,6 +70,7 @@ const MainScene = React.memo(function() {
             <h1>Main Scene</h1>
             <p>You as a table</p>
             <ControlsSelector />
+            <CanvasSnapshot />
             <canvas id="mainScene" ref={canvasRef}/>
   </div>);
 });
@@ -79,7 +81,7 @@ export default MainScene;
 function createTable() {
   const table = new THREE.Group();
 
-  const tabletopGeometry = new THREE.BoxGeometry(1, 0.1, 1);
+  const tabletopGeometry = new THREE.BoxGeometry(2, 0.1, 1);
   const tabletopMaterial = new THREE.MeshBasicMaterial({ color: 0x8B4513 });
   const tabletop = new THREE.Mesh(tabletopGeometry, tabletopMaterial);
   table.add(tabletop);
@@ -88,10 +90,10 @@ function createTable() {
   const legMaterial = new THREE.MeshBasicMaterial({ color: 0x8B4513 });
 
   const legPositions = [
-    [-0.45, -0.5, -0.45],
-    [0.45, -0.5, -0.45],
-    [-0.45, -0.5, 0.45],
-    [0.45, -0.5, 0.45]
+    [-0.9, -0.5, -0.45],
+    [0.9, -0.5, -0.45],
+    [-0.9, -0.5, 0.45],
+    [0.9, -0.5, 0.45]
   ];
 
   for (const position of legPositions) {

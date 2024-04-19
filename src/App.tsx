@@ -9,11 +9,11 @@ function App() {
   return (
     <>
         <AppProvider>
-          <Logo />
-          <div className="App">
-              <MainScene />
-              <TextureMapper />
-          </div>
+            <Logo/>
+            <div className="App">
+                <MainScene/>
+                <TextureMapper/>
+            </div>
         </AppProvider>
     </>
   )

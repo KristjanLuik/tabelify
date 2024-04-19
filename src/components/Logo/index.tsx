@@ -1,5 +1,7 @@
 import {useState} from 'react';
 
+import './Logo.css';
+
 export default function Logo() {
     const [logoText, setLogoText] = useState("(ヘ･_･)ヘ┳━┳");
 

@@ -1,0 +1,47 @@
+.CanvasSnapshot {
+    .Overlay{
+        z-index: 2;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: rgba(37, 24, 11, 0.9);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        
+        .Close {
+            font-size: 30px;
+            color: whitesmoke;
+            position: absolute;
+            top: 5%;
+            right: 5%;
+            padding: 10px;
+            &:hover {
+                cursor: pointer;
+                transform: scale(1.1);
+            }
+        }
+
+        .ImageContainer {
+            position: relative;
+            display: inline-block;
+        }
+
+        .Download {
+            font-size: 20px;
+            color: whitesmoke;
+            position: absolute;
+            bottom: 2px; /* Adjust as needed */
+            right: 36px; /* Adjust as needed */
+            padding: 5px;
+            &:hover {
+                cursor: pointer;
+                transform: scale(1.1);
+            }
+        }
+    }
+
+    
+}

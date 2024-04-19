@@ -1,8 +1,13 @@
 .MainScene {
+    position: relative;
     .ControlsSelector {
+        position: absolute;
+        top: 32%;
+        right: 0;
+        z-index: 1000;
         display: flex;
         justify-content: center;
-        & > button {
+        & >button {
             background: none;
             color: inherit;
             border: none;
@@ -11,6 +16,7 @@
             :hover {
                 cursor: pointer;
                 animation: rotate 2s linear infinite;
+                transform: scale(1.1);
             }
         }
 

@@ -91,7 +91,7 @@ export default function TextureMapper() {
             <h1>Texture Mapper</h1>
             <p>Paste or upload an image to map it to a 3D object.</p>
             <canvas id="textureMapper" width={weight} height={newHeight}></canvas>
-            <button onClick={handleButtonClick}>Turn to Table</button>
+            <button onClick={handleButtonClick}>Upload Pic</button>
             <input
                 type="file"
                 accept="image/*"

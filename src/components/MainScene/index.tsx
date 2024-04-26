@@ -2,7 +2,7 @@ import * as THREE from 'three';
 
 import React, {useEffect, useRef} from "react";
 import {AppState, useAppContext} from "../../appContext";
-import ControlsSelector from "../ControlsSelector";
+import Controls from "../Controls";
 // @ts-expect-error yes
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 
@@ -19,7 +19,7 @@ const MainScene = React.memo(function() {
       const scene = new THREE.Scene();
       const camera = new THREE.PerspectiveCamera(75, /*window.innerWidth / window.innerHeight*/ 16/9, 0.1, 1000);
       const renderer = new THREE.WebGLRenderer({ canvas: canvasRef.current, preserveDrawingBuffer: true, alpha: true });
-      const controls = new OrbitControls( camera, renderer.domElement);
+      const controls = new OrbitControls(camera, renderer.domElement);
 
       //const aspectRatio = window.innerWidth / window.innerHeight;
       const aspectRatio = 16/9;
@@ -54,6 +54,10 @@ const MainScene = React.memo(function() {
           table.rotation.y += 0.01;
         }
 
+        if (appState.background.useBackground && appState.background.color != '') {
+            scene.background = new THREE.Color(appState.background.color);
+        }
+
         renderer.render(scene, camera);
       };
 
@@ -64,12 +68,12 @@ const MainScene = React.memo(function() {
         scene.remove(table);
       }
     }
-  }, [appState.uploadedUrl, appState.controls]);
+  }, [appState.uploadedUrl, appState.controls, appState.background]);
 
   return (<div className="MainScene">
             <h1>Main Scene</h1>
             <p>You as a table</p>
-            <ControlsSelector />
+            <Controls />
             <CanvasSnapshot />
             <canvas id="mainScene" ref={canvasRef}/>
   </div>);

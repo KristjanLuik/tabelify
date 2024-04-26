@@ -1,4 +1,6 @@
-import {useEffect, useRef} from "react";
+import React, {useEffect, useRef, createRef } from "react";
+import Cropper, { ReactCropperElement } from "react-cropper";
+import "cropperjs/dist/cropper.css";
 import { useAppContext } from "../../appContext.tsx";
 import "./TextureMapper.css";
 
@@ -9,47 +11,38 @@ export default function TextureMapper() {
     // @ts-expect-error yes
     const { appState, setAppState } = useAppContext();
     const fileInputRef = useRef<HTMLInputElement>(null);
+    const cropperRef = createRef<ReactCropperElement>();
+
+    const getCropData = () => {
+        if (typeof cropperRef.current?.cropper !== "undefined") {
+            setAppState({ ...appState, uploadedUrl: cropperRef.current?.cropper.getCroppedCanvas().toDataURL()});
+        }
+    };
 
     useEffect(() => {
-        window.addEventListener("paste", function(e){
+        const pasteHandler = (e: ClipboardEvent) => {
             retrieveImageFromClipboardAsBlob(e, function(imageBlob){
                 if(imageBlob){
-                    const canvas = document.getElementById("textureMapper") as HTMLCanvasElement;
-                    if (!canvas) {
-                        console.error("Canvas not found");
-                        return;
-                    }
-                    const ctx = canvas.getContext('2d');
-                    if (!ctx) {
-                        console.error("Canvas 2d context not found");
-                        return;
-                    }
-
-                    const img = new Image();
-
-                    img.onload = function(){
-                        // Clear the canvas
-                        ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-                        // Draw the image
-                        ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
-                    };
-
                     const URLObj = window.URL || window.webkitURL;
-                    img.src = URLObj.createObjectURL(imageBlob);
-                    setAppState({ ...appState, uploadedUrl: img.src });
+                    setAppState({ ...appState, uploadedUrl: URLObj.createObjectURL(imageBlob), imageBlob: imageBlob});
                 }
             });
-        }, false);
+        }
+
+        window.addEventListener("paste", pasteHandler, false);
+
         return () => {
             console.log("TextureMapper unmounted");
+            window.removeEventListener("paste", pasteHandler);
         }
     });
+
 
     const handleButtonClick = () => {
         // trigger click event of the file input
         fileInputRef.current?.click();
     };
+
 
     const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const file = event.target.files?.[0];
@@ -86,11 +79,30 @@ export default function TextureMapper() {
         setAppState({ ...appState, uploadedUrl: url });
     };
 
+    console.log(appState.uploadedUrl)
     return (
         <div className="TextureMapper">
             <h1>Texture Mapper</h1>
             <p>Paste or upload an image to map it to a 3D object.</p>
-            <canvas id="textureMapper" width={weight} height={newHeight}></canvas>
+            <div className="img-preview"></div>
+            <Cropper
+                className="cropper"
+                ref={cropperRef}
+                style={{ height: newHeight, width: weight }}
+                zoomTo={0.5}
+                initialAspectRatio={aspectRatio}
+                preview=".img-preview"
+                src={appState.uploadedUrl}
+                viewMode={1}
+                minCropBoxHeight={10}
+                minCropBoxWidth={10}
+                background={false}
+                responsive={true}
+                autoCropArea={1}
+                checkOrientation={false} // https://github.com/fengyuanchen/cropperjs/issues/671
+                guides={true}
+            />
+            <button onClick={getCropData} disabled={appState.uploadedUrl == ""}>Do Crop</button>
             <button onClick={handleButtonClick}>Upload Pic</button>
             <input
                 type="file"

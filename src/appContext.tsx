@@ -4,12 +4,40 @@ interface Props { children: string | number | boolean | ReactElement | Iterable<
 
 export interface AppState {
     uploadedUrl: string;
-    controls: boolean;
+    imageBlob: Blob;
+    controls: {
+        active: boolean;
+        control: Control;
+    },
+    background: {
+        color: string;
+        active: boolean;
+        useBackground: boolean;
+    }
+
+}
+
+export enum Control{
+    Orbit,
+    Rotate,
+    Background
+
 }
 
 const AppContext = createContext({});
 const AppProvider = (props: Props) => {
-    const [appState, setAppState] = useState({ uploadedUrl: '', controls: true} as AppState);
+    const [appState, setAppState] = useState(
+        {
+            uploadedUrl: '',
+            controls: {
+                active: false,
+                control: Control.Rotate,
+            },
+            background: {
+                active: false,
+                useBackground: false,
+            }
+        } as AppState);
 
     return (
         <AppContext.Provider value={{ appState, setAppState}}>

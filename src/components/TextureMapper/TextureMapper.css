@@ -1,5 +1,5 @@
 .TextureMapper{
-    canvas {
+    .cropper {
         border: aqua 1px solid;
     }
     display: flex;

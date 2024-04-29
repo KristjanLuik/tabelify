@@ -12,9 +12,9 @@ export default function Controls() {
     console.log(appState.background);
     return (
         <div className="Controls">
-            <button onClick={() => setAppState({...appState, controls: {control: Control.Orbit}})}><LuOrbit size={25}/>
+            <button onClick={() => setAppState({...appState, controls: { ...appState.controls, control: Control.Orbit}})}><LuOrbit size={25}/>
             </button>
-            <button onClick={() => setAppState({...appState, controls: {control: Control.Rotate}})}><Tb3DRotate
+            <button onClick={() => setAppState({...appState, controls: { ...appState.controls,control: Control.Rotate}})}><Tb3DRotate
                 size={25}/></button>
             <div className="background">
                 <button className={`bg bg-${appState.background.useBackground}`} onClick={() => setAppState({

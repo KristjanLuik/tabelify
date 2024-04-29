@@ -1,11 +1,11 @@
 'use strict'
 
-import React, {useEffect, useState} from 'react'
+import { useEffect, useState} from 'react'
 import { CompactPicker } from 'react-color'
-import { useAppContext, AppContext} from "../../appContext";
+import { useAppContext, AppState } from "../../appContext";
 
 export default function ColorPicker() {
-    const { setAppState, appState } = useAppContext(AppContext) as { setAppState: (appState: AppState) => void, appState: AppState };
+    const { setAppState, appState } = useAppContext() as { setAppState: (appState: AppState) => void, appState: AppState };
     const [background, setBackground] = useState('#fff');
     //const [displayColorPicker, setDisplayColorPicker] = useState(false);
 

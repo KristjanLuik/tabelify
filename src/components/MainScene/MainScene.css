@@ -1,9 +1,22 @@
 .MainScene {
-    position: relative;
+    display: flex;
+    flex-direction: column;
 
+    #mainScene {
+        max-width: 100%;
+        max-height: 100%;
+        display: block;
+        margin: auto;
+        width: unset;
+        height: unset;
+    }
+    .MainWindow {
+        border: solid 1px red;
+        position: relative;
+    }
     .Controls {
         position: absolute;
-        top: 32%;
+        top: 6%;
         right: 0;
         z-index: 1000;
         display: flex;

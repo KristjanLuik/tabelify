@@ -32,7 +32,6 @@ export default function TextureMapper() {
         window.addEventListener("paste", pasteHandler, false);
 
         return () => {
-            console.log("TextureMapper unmounted");
             window.removeEventListener("paste", pasteHandler);
         }
     });
@@ -49,28 +48,7 @@ export default function TextureMapper() {
         if (!file) return;
 
         const reader = new FileReader();
-        reader.onload = (e) => {
-            const img = new Image();
-            img.onload = () => {
-                const canvas = document.getElementById("textureMapper") as HTMLCanvasElement;
-                if (!canvas) {
-                    console.error("Canvas not found");
-                    return;
-                }
-                const ctx = canvas.getContext('2d');
-                if (!ctx) {
-                    console.error("Canvas 2d context not found");
-                    return;
-                }
 
-                // Clear the canvas
-                ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-                // Draw the image
-                ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
-            };
-            img.src = e.target?.result as string;
-        };
         reader.readAsDataURL(file);
 
         // handle the file here
@@ -79,7 +57,7 @@ export default function TextureMapper() {
         setAppState({ ...appState, uploadedUrl: url });
     };
 
-    console.log(appState.uploadedUrl)
+
     return (
         <div className="TextureMapper">
             <h1>Texture Mapper</h1>

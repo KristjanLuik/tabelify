@@ -9,7 +9,7 @@ export default function Controls() {
         appState: AppState,
         setAppState: (appState: AppState) => void
     };
-    console.log(appState.background);
+
     return (
         <div className="Controls">
             <button onClick={() => setAppState({...appState, controls: { ...appState.controls, control: Control.Orbit}})}><LuOrbit size={25}/>

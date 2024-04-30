@@ -1,16 +1,13 @@
 'use strict'
 
-import { useEffect, useState} from 'react'
+import { useEffect } from 'react'
 import { CompactPicker } from 'react-color'
 import { useAppContext, AppState } from "../../appContext";
 
 export default function ColorPicker() {
     const { setAppState, appState } = useAppContext() as { setAppState: (appState: AppState) => void, appState: AppState };
-    const [background, setBackground] = useState('#fff');
-    //const [displayColorPicker, setDisplayColorPicker] = useState(false);
 
     const handleChangeComplete = (color: { hex: string; }) => {
-        setBackground(color.hex);
         setAppState({ ...appState, background: { ...appState.background, useBackground: true,  color: color.hex } });
     };
 
@@ -30,15 +27,14 @@ export default function ColorPicker() {
         return () => {
             document.removeEventListener('keydown', handleKeyDown);
         };
-    }, []);
+    });
 
     return (
         <>
         <div style={{position: 'absolute', zIndex: 2}}>
             <div style={{position: 'fixed', top: 0, right: 0, bottom: 0, left: 0}} onClick={handleClick} />
-            <CompactPicker color={background} onChangeComplete={handleChangeComplete} />
+            <CompactPicker color={appState.background.color} onChangeComplete={handleChangeComplete} />
         </div>
         </>
-
         );
 }

@@ -11,17 +11,14 @@
     display: flex;
     flex-direction: row-reverse;
     justify-content: center;
-    flex-flow: row-reverse wrap;
-    & > div {
-      /*margin: auto;*/
-
-    }
+    flex-flow: row wrap;
   }
   /* Medium screens */
   @media all and (max-width: 800px) {
     .App {
       /* When on medium sized screens, we center it by evenly distributing empty space around items */
       justify-content: space-around;
+      padding: 2rem;
     }
   }
 
@@ -29,7 +26,8 @@
   @media all and (max-width: 500px) {
     .App {
       /* On small screens, we are no longer using row direction but column */
-      flex-direction: column-reverse;
+      /*flex-direction: column;*/
+      padding: 1rem;
     }
   }
 }

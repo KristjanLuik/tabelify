@@ -31,11 +31,12 @@ const AppProvider = (props: Props) => {
             uploadedUrl: '',
             controls: {
                 active: false,
-                control: Control.Rotate,
+                control: Control.Orbit,
             },
             background: {
                 active: false,
                 useBackground: false,
+                color: '#fff'
             }
         } as AppState);
 

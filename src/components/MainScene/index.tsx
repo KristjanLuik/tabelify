@@ -1,10 +1,10 @@
 import * as THREE from 'three';
 
 import React, {useEffect, useRef} from "react";
-import {AppState, useAppContext} from "../../appContext";
+import {AppState, Control, useAppContext} from "../../appContext";
 import Controls from "../Controls";
 // @ts-expect-error yes
-import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
+import {OrbitControls} from "three/examples/jsm/controls/OrbitControls";
 
 import './MainScene.css';
 import CanvasSnapshot from "../CanvasSnapshot";
@@ -13,6 +13,8 @@ const MainScene = React.memo(function() {
   const weight = 600;
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const { appState } = useAppContext() as { appState: AppState };
+  const objectCache= useRef<THREE.Object3D | null>(null);
+  const cameraCache = useRef<THREE.Camera | null>(null);
 
   useEffect(() => {
     if (canvasRef.current) {
@@ -30,6 +32,17 @@ const MainScene = React.memo(function() {
 
       const table  = createTable();
 
+      // Cache setup
+      if (objectCache.current) {
+        objectCache.current?.getWorldPosition(table.position);
+        //table.position.copy(objectCache.current.position);
+        table.rotation.copy(objectCache.current.rotation);
+      }
+      if(cameraCache.current) {
+        camera.position.copy(cameraCache.current.position);
+        camera.rotation.copy(cameraCache.current.rotation);
+      }
+
       if (appState.uploadedUrl) {
         const texture = new THREE.TextureLoader().load(appState.uploadedUrl);
         // @ts-expect-error yes
@@ -45,7 +58,7 @@ const MainScene = React.memo(function() {
       const animate = () => {
         requestAnimationFrame(animate);
 
-        if(appState.controls) {
+        if(appState.controls.control === Control.Orbit) {
             controls.update();
         } else {
           controls.enabled = false;
@@ -64,6 +77,8 @@ const MainScene = React.memo(function() {
       animate();
 
       return () => {
+        objectCache.current = table;
+        cameraCache.current = camera;
         renderer.dispose();
         scene.remove(table);
       }
@@ -73,9 +88,12 @@ const MainScene = React.memo(function() {
   return (<div className="MainScene">
             <h1>Main Scene</h1>
             <p>You as a table</p>
-            <Controls />
+
             <CanvasSnapshot />
-            <canvas id="mainScene" ref={canvasRef}/>
+            <div className="MainWindow">
+              <Controls />
+              <canvas id="mainScene" ref={canvasRef}/>
+            </div>
   </div>);
 });
 

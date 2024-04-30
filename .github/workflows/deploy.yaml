@@ -38,6 +38,8 @@ jobs:
       - name: Install dependencies
         run: npm ci
       - name: Build
+        env:
+          VITE_GTAG: ${{ env.VITE_GTAG }}
         run: npm run build
       - name: Setup Pages
         uses: actions/configure-pages@v4

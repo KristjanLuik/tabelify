@@ -1,13 +1,14 @@
 import * as THREE from 'three';
 
 import React, {useEffect, useRef} from "react";
+import {OrbitControls} from "three/examples/jsm/controls/OrbitControls";
 import {AppState, Control, useAppContext} from "../../appContext";
 import Controls from "../Controls";
 // @ts-expect-error yes
-import {OrbitControls} from "three/examples/jsm/controls/OrbitControls";
-
-import './MainScene.css';
 import CanvasSnapshot from "../CanvasSnapshot";
+
+import createTable from "../../utils/createTable";
+import './MainScene.css';
 
 const MainScene = React.memo(function() {
   const weight = 600;
@@ -88,7 +89,6 @@ const MainScene = React.memo(function() {
   return (<div className="MainScene">
             <h1>Main Scene</h1>
             <p>You as a table</p>
-
             <CanvasSnapshot />
             <div className="MainWindow">
               <Controls />
@@ -98,32 +98,3 @@ const MainScene = React.memo(function() {
 });
 
 export default MainScene;
-
-
-function createTable() {
-  const table = new THREE.Group();
-
-  const tabletopGeometry = new THREE.BoxGeometry(2, 0.1, 1);
-  const tabletopMaterial = new THREE.MeshBasicMaterial({ color: 0x8B4513 });
-  const tabletop = new THREE.Mesh(tabletopGeometry, tabletopMaterial);
-  table.add(tabletop);
-
-  const legGeometry = new THREE.BoxGeometry(0.1, 0.9, 0.1);
-  const legMaterial = new THREE.MeshBasicMaterial({ color: 0x8B4513 });
-
-  const legPositions = [
-    [-0.9, -0.5, -0.45],
-    [0.9, -0.5, -0.45],
-    [-0.9, -0.5, 0.45],
-    [0.9, -0.5, 0.45]
-  ];
-
-  for (const position of legPositions) {
-    const leg = new THREE.Mesh(legGeometry, legMaterial);
-    // @ts-expect-error yes
-    leg.position.set(...position);
-    table.add(leg);
-  }
-
-  return table;
-}

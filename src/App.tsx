@@ -12,12 +12,11 @@ import './App.css'
 function App() {
 //const TRACKING_ID = "G-62FR2ML7Q9";
 //ReactGA.initialize(TRACKING_ID);
-
-  return (
-    <>
-        <AppProvider>
+console.log(import.meta.env)
+    return (
+        <>
+            <AppProvider>
             <Logo/>
-            <span>Su tag{import.meta.env.GTAG}</span>
             <div className="App">
                 <MainScene/>
                 <TextureMapper/>

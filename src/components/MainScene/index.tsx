@@ -1,14 +1,16 @@
 import * as THREE from 'three';
 
+// @ts-expect-error yes
+import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
+
 import React, {useEffect, useRef} from "react";
-import {OrbitControls} from "three/examples/jsm/controls/OrbitControls";
 import {AppState, Control, useAppContext} from "../../appContext";
 import Controls from "../Controls";
-// @ts-expect-error yes
 import CanvasSnapshot from "../CanvasSnapshot";
-
 import createTable from "../../utils/createTable";
+
 import './MainScene.css';
+
 
 const MainScene = React.memo(function() {
   const weight = 600;

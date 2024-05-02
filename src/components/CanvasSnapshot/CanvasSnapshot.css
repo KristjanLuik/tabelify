@@ -1,4 +1,14 @@
 .CanvasSnapshot {
+
+    .Overlay{
+        transform: translateY(100%); /* Initially hide the overlay */
+        transition: transform 5s ease-in-out; /* Add transition */
+    }
+
+    .Overlay.active {
+        transform: translateY(0); /* Show the overlay when it's active */
+    }
+
     .Overlay{
         z-index: 2;
         position: fixed;

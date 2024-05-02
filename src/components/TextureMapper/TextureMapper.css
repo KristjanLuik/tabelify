@@ -1,7 +1,10 @@
 .TextureMapper{
     .cropper {
         border: aqua 1px solid;
+        width: 100%;
     }
     display: flex;
     flex-direction: column;
+    width: 100%;
+    max-width: 600px;
 }

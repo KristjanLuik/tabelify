@@ -51,7 +51,7 @@ function CanvasSnapshot() {
         <div className="CanvasSnapshot">
             <button onClick={takeSnapshot}>Take Snapshot</button>
             {snapshot && (
-                <div className="Overlay">
+                <div className={`Overlay ${snapshot ? 'active' : ''}`}>
                     <div className="Close" onClick={closeSnapshot}><AiOutlineCloseCircle/></div>
                     <div className="ImageContainer">
                         <div className="Download" onClick={downloadSnapshot}><FaDownload/></div>

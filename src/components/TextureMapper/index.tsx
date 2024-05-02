@@ -66,7 +66,7 @@ export default function TextureMapper() {
             <Cropper
                 className="cropper"
                 ref={cropperRef}
-                style={{ height: newHeight, width: weight }}
+                style={{ height: newHeight }}
                 zoomTo={0.5}
                 initialAspectRatio={aspectRatio}
                 preview=".img-preview"

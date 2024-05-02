@@ -5,7 +5,7 @@
   padding: 4rem;
   text-align: center;
   overflow:hidden;
-  box-shadow: 0px 10px 15px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
   border-radius: 10px;
   margin: 2rem;
   background-color: hsla(99, 22%, 23%, 0.75);

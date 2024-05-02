@@ -98,7 +98,7 @@ const MainScene = React.memo(function () {
         <p>You as a table</p>
 
         <div className="MainWindow">
-            <div className="HoverArea">menu</div>
+            <span className="MenuLabel">Menu</span>
             <Controls/>
             <canvas id="mainScene" ref={canvasRef}/>
         </div>

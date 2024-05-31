@@ -8,8 +8,9 @@ import {AppState, Control, useAppContext} from "../../appContext";
 import Controls from "../Controls";
 import CanvasSnapshot from "../CanvasSnapshot";
 import createTable from "../../utils/createTable";
-
+import {enqueueSnackbar} from "notistack";
 import './MainScene.css';
+import { Button } from "@mui/material";
 
 
 const MainScene = React.memo(function () {
@@ -93,6 +94,15 @@ const MainScene = React.memo(function () {
         }
     }, [appState.uploadedUrl, appState.controls, appState.background]);
 
+
+    const handlesnackbar = () => {
+        enqueueSnackbar('Your report is ready', {
+            variant: 'reportComplete',
+            persist: true,
+            allowDownload: true, // <-- pass any additional options
+        })
+    }
+
     return (<div className="MainScene">
         <h1>Main Scene</h1>
         <p>You as a table</p>
@@ -103,6 +113,10 @@ const MainScene = React.memo(function () {
             <canvas id="mainScene" ref={canvasRef}/>
         </div>
         <CanvasSnapshot/>
+        <Button onClick={() => handlesnackbar()}>
+            Show snackbar
+        </Button>
+
     </div>);
 });
 

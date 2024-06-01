@@ -8,6 +8,7 @@ import ReportCompleteSnackbar from "./components/NotificationTypes/ReportComplet
 import { SnackbarProvider } from 'notistack'
 
 import './App.css'
+import ProgressLoader from "./components/NotificationTypes/ProgressLoader/ProgressLoader.tsx";
 
 
 
@@ -24,6 +25,7 @@ function App() {
             <SnackbarProvider
                 Components={{
                     reportComplete: ReportCompleteSnackbar,
+                    progressLoader: ProgressLoader
                 }}
             >
             <Logo/>

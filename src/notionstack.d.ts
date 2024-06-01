@@ -10,5 +10,8 @@ declare module 'notistack' {
         reportComplete: {
             allowDownload: boolean
         }
+        progressLoader: {
+            progress: number
+        }
     }
 }

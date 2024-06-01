@@ -95,11 +95,19 @@ const MainScene = React.memo(function () {
     }, [appState.uploadedUrl, appState.controls, appState.background]);
 
 
-    const handlesnackbar = () => {
+    const handleReport = () => {
         enqueueSnackbar('Your report is ready', {
             variant: 'reportComplete',
             persist: true,
             allowDownload: true, // <-- pass any additional options
+        })
+    }
+
+    const handleProgress = () => {
+        enqueueSnackbar('Your report is ready', {
+            variant: 'progressLoader',
+            persist: true,
+            progress: 50, // <-- pass any additional options
         })
     }
 
@@ -113,7 +121,10 @@ const MainScene = React.memo(function () {
             <canvas id="mainScene" ref={canvasRef}/>
         </div>
         <CanvasSnapshot/>
-        <Button onClick={() => handlesnackbar()}>
+        <Button onClick={() => handleReport()}>
+            Show snackbar
+        </Button>
+        <Button onClick={() => handleProgress()}>
             Show snackbar
         </Button>
 

@@ -1,7 +1,10 @@
 @custom-media --small-viewport (max-width: 30em);
 
-@media (--small-viewport) {
-    .Logo {
-        font-size: 20px;
+.Logo {
+    @media (--small-viewport) {
+        .Logo {
+            font-size: 20px;
+        }
     }
+    cursor: default;
 }

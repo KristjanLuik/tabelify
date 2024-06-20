@@ -1,17 +1,14 @@
 import ReactGA from 'react-ga4';
-
+/* eslint-disable */
 import MainScene from "./components/MainScene";
 import TextureMapper from "./components/TextureMapper";
 import Logo from "./components/Logo";
-import { AppProvider } from "./appContext.tsx";
-import ReportCompleteSnackbar from "./components/NotificationTypes/ReportComplete/ReportComplete.tsx"
-import { SnackbarProvider } from 'notistack'
+import {AppProvider} from "./appContext.tsx";
+import { ToastContainer } from 'react-toastify';
 
 import './App.css'
-import ProgressLoader from "./components/NotificationTypes/ProgressLoader/ProgressLoader.tsx";
-
-
-
+import 'react-toastify/dist/ReactToastify.css';
+import BottomMenu from "./components/BottomMenu/BottomMenu.tsx";
 
 function App() {
     if (import.meta.env.PROD) {
@@ -22,18 +19,13 @@ function App() {
     return (
         <>
             <AppProvider>
-            <SnackbarProvider
-                Components={{
-                    reportComplete: ReportCompleteSnackbar,
-                    progressLoader: ProgressLoader
-                }}
-            >
             <Logo/>
             <div className="App">
                 <MainScene/>
                 <TextureMapper/>
             </div>
-            </SnackbarProvider>
+            <BottomMenu/>
+            <ToastContainer />
         </AppProvider>
     </>
   )

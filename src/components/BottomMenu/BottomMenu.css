@@ -1,0 +1,69 @@
+.bottomIcon {
+    position: fixed;
+    bottom: 5px;
+    right: 50%;
+    cursor: pointer;
+    z-index: 10;
+    animation: sliteHower 1s infinite;
+    display: flex;
+    align-items: center;
+}
+
+.menu {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    width: 100%;
+    height: 0;
+    overflow: hidden;
+    transition: height 0.5s ease-in-out;
+    background-color: rgb(27, 51, 30);
+    border-top-left-radius: 25px;
+    border-top-right-radius: 25px;
+}
+
+.wave {
+    display: inline-block;
+    animation-timing-function: linear;
+    animation: wave 1s infinite;
+    &.open {
+        animation: fadeOut 0.5s ease-in-out forwards;
+    }
+}
+
+@keyframes wave {
+    0%, 100% {
+        animation-duration: 2s;
+        animation-iteration-count: infinite;
+        transform: rotate(0deg);
+    }
+    50% {
+        transform: rotate(14deg);
+    }
+}
+
+@keyframes sliteHower {
+    0% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(5px);
+    }
+    100% {
+        transform: translateY(0);
+    }
+}
+
+.menu.open {
+    height: 50vh; /* adjust this value to change the height of the menu when open */
+}
+
+@keyframes fadeOut {
+    0%  {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+

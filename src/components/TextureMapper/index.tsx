@@ -1,8 +1,9 @@
 import React, {useEffect, useRef, createRef } from "react";
 import Cropper, { ReactCropperElement } from "react-cropper";
 import "cropperjs/dist/cropper.css";
-import { useAppContext } from "../../appContext.tsx";
+import {BackgroundEvent, useAppContext} from "../../appContext.tsx";
 import "./TextureMapper.css";
+import {Button} from "@mui/material";
 
 export default function TextureMapper() {
     const weight = 600;
@@ -82,6 +83,9 @@ export default function TextureMapper() {
             />
             <button onClick={getCropData} disabled={appState.uploadedUrl == ""}>Do Crop</button>
             <button onClick={handleButtonClick}>Upload Pic</button>
+            <Button variant={"contained"} onClick={() => {
+                setAppState({ ...appState, BackgroundStatus: BackgroundEvent.DoBackgroundRemoval });
+            }}>Remove Background</Button>
             <input
                 type="file"
                 accept="image/*"
